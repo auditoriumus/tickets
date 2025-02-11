@@ -1,0 +1,11 @@
+parameters:
+	ignoreErrors:
+		-
+			identifier: staticMethod.notFound
+		-
+			identifier: method.staticCall
+		-
+			identifier: missingType.generics
+	level: 6
+	paths:
+		- app
