@@ -1,4 +1,5 @@
 <?php
+declare(strict_types=1);
 
 namespace App\Http\Requests;
 
@@ -20,7 +21,7 @@ class RefreshJwtRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'refreshToken' => 'required|string|max:255|exists:employee_refresh_token,refresh_token',
+            'refreshToken' => 'required|string|max:255|exists:user_refresh_token,refresh_token',
         ];
     }
 }

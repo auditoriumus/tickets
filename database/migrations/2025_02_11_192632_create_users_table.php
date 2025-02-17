@@ -8,17 +8,18 @@ return new class extends Migration
 {
     public function up(): void
     {
-        Schema::create('employee_refresh_token', function (Blueprint $table) {
+        Schema::create('users', function (Blueprint $table) {
             $table->id();
-            $table->string('employee_id')->nullable();
-            $table->string('refresh_token')->nullable();
-            $table->timestamp('expired_at')->nullable();
+            $table->string('name')->nullable();
+            $table->string('phone')->nullable();
+            $table->string('email')->nullable();
             $table->timestamps();
+            $table->softDeletes();
         });
     }
 
     public function down(): void
     {
-        Schema::dropIfExists('employee_refresh_token');
+        Schema::dropIfExists('users');
     }
 };

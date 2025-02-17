@@ -1,7 +1,7 @@
 <?php
 declare(strict_types=1);
 
-namespace App\Http\Controllers\Api\v1\CatalogControllers;
+namespace App\Http\Controllers\Api\v1;
 
 use Illuminate\Http\JsonResponse;
 

@@ -3,7 +3,7 @@ declare(strict_types=1);
 
 namespace App\Http\Auth\AuthStages;
 
-use App\Services\CurrentEmployee;
+use App\Services\CurrentUser;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Validation\ValidationException;
@@ -16,7 +16,7 @@ final class CheckPassword extends Auth
     {
         $passwordCheck = Hash::check(
             $request->input('password'),
-            (CurrentEmployee::getByEmail($request->input('email')))->password
+            (CurrentUser::getByEmail($request->input('email')))->password
         );
 
         if (!$passwordCheck) {

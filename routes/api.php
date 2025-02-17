@@ -3,12 +3,9 @@
 use Illuminate\Support\Facades\Route;
 
 Route::group([
-    'namespace' => 'App\Http\Controllers\Api\v1',
-    'prefix' => 'v1'
+    'prefix' => 'v1',
+    'namespace' => 'App\Http\Controllers\api\v1'
 ], function () {
-    Route::group([
-        'namespace' => 'CatalogControllers'
-    ], function () {
-        Route::apiResource('employees', 'EmployeeController');
-    });
+    Route::apiResource('users', 'UserController');
+    Route::apiResource('regions', 'RegionController');
 });

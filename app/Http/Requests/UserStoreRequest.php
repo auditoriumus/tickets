@@ -3,10 +3,9 @@ declare(strict_types=1);
 
 namespace App\Http\Requests;
 
-use Illuminate\Contracts\Validation\ValidationRule;
 use Illuminate\Foundation\Http\FormRequest;
 
-class EmployeeStoreRequest extends FormRequest
+class UserStoreRequest extends FormRequest
 {
     public function authorize(): bool
     {
@@ -20,7 +19,7 @@ class EmployeeStoreRequest extends FormRequest
     {
         return [
             'name'  => 'required|string',
-            'email' => 'required|email|unique:employees,email',
+            'email' => 'required|email|unique:users,email',
             'phone' => 'required|string',
         ];
     }

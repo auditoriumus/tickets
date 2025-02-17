@@ -1,20 +1,20 @@
 <?php
 declare(strict_types=1);
 
-namespace App\Http\Controllers\Api\v1\CatalogControllers;
+namespace App\Http\Controllers\Api\v1;
 
 use App\Http\Controllers\Controller;
-use App\Http\Requests\EmployeeStoreRequest;
-use App\Http\Requests\EmployeeUpdateRequest;
-use App\Http\Resources\EmployeeResource;
-use App\Models\Catalogs\Employee;
+use App\Http\Requests\UserStoreRequest;
+use App\Http\Requests\UserUpdateRequest;
+use App\Http\Resources\UserResource;
+use App\Models\User;
 use App\Services\EmployeeServices\StoreEmployee;
 use Illuminate\Database\Eloquent\ModelNotFoundException;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Resources\Json\AnonymousResourceCollection;
 use Throwable;
 
-class EmployeeController extends Controller
+class UserController extends Controller
 {
     use ResponseTrait;
     /**
@@ -22,14 +22,14 @@ class EmployeeController extends Controller
      */
     public function index(): AnonymousResourceCollection
     {
-        return EmployeeResource::collection(Employee::paginate(self::$paginate));
+        return UserResource::collection(User::paginate(self::$paginate));
     }
 
     /**
-     * @param EmployeeStoreRequest $request
+     * @param UserStoreRequest $request
      * @return JsonResponse
      */
-    public function store(EmployeeStoreRequest $request): JsonResponse
+    public function store(UserStoreRequest $request): JsonResponse
     {
         try {
             $pwd = (new StoreEmployee())->handle($request->all());
@@ -41,22 +41,22 @@ class EmployeeController extends Controller
 
     /**
      * @param string $id
-     * @return EmployeeResource
+     * @return UserResource
      */
-    public function show(string $id): EmployeeResource
+    public function show(string $id): UserResource
     {
-        return new EmployeeResource(Employee::findOrFail($id));
+        return new UserResource(User::findOrFail($id));
     }
 
     /**
-     * @param EmployeeUpdateRequest $request
+     * @param UserUpdateRequest $request
      * @param string $id
      * @return JsonResponse
      */
-    public function update(EmployeeUpdateRequest $request, string $id): JsonResponse
+    public function update(UserUpdateRequest $request, string $id): JsonResponse
     {
         try {
-            Employee::findOrFail($id)->update($request->all());
+            User::findOrFail($id)->update($request->all());
             return $this->returnUpdatedResponse();
         } catch (ModelNotFoundException $e) {
             return response()->json(['message' => $e->getMessage()], 404);
@@ -72,7 +72,7 @@ class EmployeeController extends Controller
     public function destroy(string $id): JsonResponse
     {
         try {
-            Employee::findOrFail($id)->delete();
+            User::findOrFail($id)->delete();
             return $this->returnDeletedResponse();
         } catch (ModelNotFoundException $e) {
             return response()->json(['message' => $e->getMessage()], 404);

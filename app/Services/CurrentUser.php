@@ -3,49 +3,50 @@ declare(strict_types=1);
 
 namespace App\Services;
 
-use App\Models\Catalogs\Employee;
-use App\Models\EmployeeRefreshToken;
+use App\Models\User;
+use App\Models\UserRefreshToken;
 use Carbon\Carbon;
 use Illuminate\Auth\AuthenticationException;
 
 /**
  * Класс предназначен для получения текущего пользователя (таблица employees), синглтон
  */
-class CurrentEmployee
+class CurrentUser
 {
-    private static Employee $employee;
+    private static User $user;
 
     const string REFRESH_IS_TOKEN_EXPIRED = 'Refresh is token expired';
 
-    public static function getByEmail(string $email): ?Employee
+    public static function getByEmail(string $email): ?User
     {
-        if (empty(self::$employee)) {
-            self::$employee = Employee::where('email', $email)->first();
+        if (empty(self::$user)) {
+            self::$user = User::where('email', $email)->first();
         }
 
-        return self::$employee;
+        return self::$user;
     }
 
-    public static function getByRefreshToken(string $refreshToken): ?Employee
+    /**
+     * @throws AuthenticationException
+     */
+    public static function getByRefreshToken(string $refreshToken): ?User
     {
-        if (empty(self::$employee)) {
-            $refreshToken = EmployeeRefreshToken::where('refresh_token', $refreshToken)->firstOrFail();
+        if (empty(self::$user)) {
+            $refreshToken = UserRefreshToken::where('refresh_token', $refreshToken)->firstOrFail();
             if (Carbon::parse($refreshToken->expired_at)->lt(Carbon::now())) {
                 throw new AuthenticationException(self::REFRESH_IS_TOKEN_EXPIRED);
             }
 
-            self::$employee = $refreshToken->employee;
+            self::$user = $refreshToken->user;
         }
 
-        return self::$employee;
+        return self::$user;
     }
 
     private function __construct()
     {
-
     }
     private function __clone()
     {
-
     }
 }

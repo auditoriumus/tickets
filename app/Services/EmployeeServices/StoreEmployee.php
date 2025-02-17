@@ -3,7 +3,7 @@ declare(strict_types=1);
 
 namespace App\Services\EmployeeServices;
 
-use App\Models\Catalogs\Employee;
+use App\Models\User;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Str;
 
@@ -14,7 +14,7 @@ class StoreEmployee
         $pwd = $this->generateRandomPwd();
         $data['password'] = Hash::make($pwd);
 
-        Employee::create($data);
+        User::create($data);
 
         return $pwd;
     }

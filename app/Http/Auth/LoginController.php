@@ -9,9 +9,9 @@ use App\Http\Auth\AuthStages\MaxAttempts;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\LoginRequest;
 use App\Http\Requests\RefreshJwtRequest;
-use App\Models\Catalogs\Employee;
-use App\Models\EmployeeRefreshToken;
-use App\Services\CurrentEmployee;
+use App\Models\User;
+use App\Models\UserRefreshToken;
+use App\Services\CurrentUser;
 use App\Services\JwtServices\EmployeeJwtGenerator;
 use Carbon\Carbon;
 use Illuminate\Auth\AuthenticationException;
@@ -28,7 +28,7 @@ class LoginController extends Controller
         $loginHandler->setNextHandler(new CheckPassword());
         $loginHandler->handle($request);
 
-        $employee = CurrentEmployee::getByEmail($request->email);
+        $employee = CurrentUser::getByEmail($request->email);
         try {
             return response()->json($this->generateTokens($employee));
         } catch (Throwable $e) {
@@ -39,7 +39,7 @@ class LoginController extends Controller
     public function refresh(RefreshJwtRequest $request): JsonResponse
     {
         try {
-            $employee = CurrentEmployee::getByRefreshToken($request->refreshToken);
+            $employee = CurrentUser::getByRefreshToken($request->refreshToken);
             return response()->json($this->generateTokens($employee));
         } catch (AuthenticationException $e) {
             return response()->json(['message' => $e->getMessage()], 422);
@@ -52,7 +52,7 @@ class LoginController extends Controller
      * @throws RandomException
      * @return array<string, mixed>
      */
-    private function generateTokens(Employee $employee): array
+    private function generateTokens(User $employee): array
     {
         return [
             'accessToken'  => (new EmployeeJwtGenerator($employee))->issueJwtToken(),
@@ -61,19 +61,19 @@ class LoginController extends Controller
     }
 
     /**
-     * @param Employee $employee
+     * @param User $employee
      * @return string
      * @throws RandomException
      */
-    private function updateRefreshToken(Employee $employee): string
+    private function updateRefreshToken(User $employee): string
     {
         $token = $this->generateRefreshToken();
 
-        EmployeeRefreshToken::updateOrInsert([
+        UserRefreshToken::updateOrInsert([
             'employee_id'   => $employee->id
         ], [
             'refresh_token' => $token,
-            'expired_at'    => Carbon::now()->addMinutes(EmployeeRefreshToken::REFRESH_TOKEN_AVAILABLE_MINUTES),
+            'expired_at'    => Carbon::now()->addMinutes(UserRefreshToken::REFRESH_TOKEN_AVAILABLE_MINUTES),
             'updated_at'    => Carbon::now()
         ]);
 
