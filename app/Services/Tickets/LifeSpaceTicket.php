@@ -3,14 +3,15 @@ declare(strict_types=1);
 
 namespace App\Services\Tickets;
 
+use App\Services\Tickets\Dictionaries\DesignDict;
+
 final class LifeSpaceTicket extends Ticket implements TicketInterface
 {
     private float $livingArea;//жилая площадь
     private float $kitchenArea;//площадь кухни
-    private int $totalFloors;//всего этажей
+    private int $totalFloors;//всего этажей в жилом доме
     private int $floor;//этаж
-    private bool $hasLift;//наличие лифта
-    private string $design;//ремонт
+    private DesignDict $design;//ремонт
 
     public function getLivingArea(): float
     {
@@ -52,22 +53,12 @@ final class LifeSpaceTicket extends Ticket implements TicketInterface
         $this->floor = $floor;
     }
 
-    public function doesHaveLift(): bool
-    {
-        return $this->hasLift;
-    }
-
-    public function setHasLift(bool $hasLift): void
-    {
-        $this->hasLift = $hasLift;
-    }
-
-    public function getDesign(): string
+    public function getDesign(): DesignDict
     {
         return $this->design;
     }
 
-    public function setDesign(string $design): void
+    public function setDesign(DesignDict $design): void
     {
         $this->design = $design;
     }

@@ -19,4 +19,11 @@ interface TicketInterface
     public function setShare(string $share): void;
     public function getTotalArea(): float;//общая площадь
     public function setTotalArea(float $totalArea): void;
+    public function getYear(): int;//год постройки
+    public function setYear(int $year): void;
+    public function getLifts(): array;
+    public function addServiceLift(): void;
+    public function deleteServiceLift(): void;
+    public function addPassengerLift(): void;
+    public function deletePassengerLift(): void;
 }
