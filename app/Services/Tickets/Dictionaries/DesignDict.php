@@ -5,6 +5,7 @@ namespace App\Services\Tickets\Dictionaries;
 
 enum DesignDict: string
 {
+    use EnumToArray;
     case BOX        = 'коробка';
     case WHITE_BOX  = 'черновой ремонт';
     case OLD        = 'без ремонта';

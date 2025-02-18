@@ -1,7 +1,7 @@
 <?php
 declare(strict_types=1);
 
-namespace App\Services\Tickets;
+namespace App\Services\Tickets\Buildings;
 
 use App\Services\Tickets\Dictionaries\SellerDict;
 use App\Services\Tickets\Dictionaries\StateDict;

@@ -5,6 +5,7 @@ namespace App\Services\Tickets\Dictionaries;
 
 enum SellerDict: string
 {
+    use EnumToArray;
     case OWNER = 'собственник';
     case AGENT = 'агент';
 }

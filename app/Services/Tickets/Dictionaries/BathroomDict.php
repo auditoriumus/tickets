@@ -5,6 +5,7 @@ namespace App\Services\Tickets\Dictionaries;
 
 enum BathroomDict: string
 {
+    use EnumToArray;
     case COMBINED  = 'совмещенный санузел';
     case SEPARATED = 'раздельный санузел';
 }
