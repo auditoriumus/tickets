@@ -3,14 +3,18 @@ declare(strict_types=1);
 
 namespace App\Services\Tickets;
 
+use App\Services\Tickets\Dictionaries\SellerDict;
 use App\Services\Tickets\Dictionaries\StateDict;
 
-class CommercialSpaceTicket extends Ticket implements TicketInterface
+final class CommercialSpaceTicket extends BuildingTicket implements BuildingTicketInterface
 {
     private int $floorsCount = 1;//всего этажей в объекте
-    private array $floors = [1];//занимаемые этажи
+    private array $floors    = [1];//занимаемые этажи
     private bool $hasLift;//наличие лифта
-    private StateDict $state;//состояние объекта
+    private string $state;//состояние объекта
+    private float $height;//высота потолков
+    private string $seller;
+
     public function getFloorsCount(): int
     {
         return $this->floorsCount;
@@ -41,13 +45,32 @@ class CommercialSpaceTicket extends Ticket implements TicketInterface
         $this->hasLift = $hasLift;
     }
 
-    public function getState(): StateDict
+    public function getState(): string
     {
         return $this->state;
     }
 
     public function setState(StateDict $state): void
     {
-        $this->state = $state;
+        $this->state = $state->value;
+    }
+
+    public function getHeight(): float
+    {
+        return $this->height ?? 0;
+    }
+    public function setHeight(float $height): void
+    {
+        $this->height = $height;
+    }
+
+    public function getSeller(): string
+    {
+        return $this->seller ?? '';
+    }
+
+    public function setSeller(SellerDict $seller): void
+    {
+        $this->seller = $seller->value;
     }
 }

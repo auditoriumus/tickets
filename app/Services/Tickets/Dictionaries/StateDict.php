@@ -5,7 +5,7 @@ namespace App\Services\Tickets\Dictionaries;
 
 enum StateDict: string
 {
-    case BOX = 'коробка';
-    case WHITE_BOX = 'готово к ремонту';
-    case DONE = 'сделан ремонт';
+    case BOX        = 'коробка';
+    case WHITE_BOX  = 'объект готов к ремонту';
+    case DONE       = 'сделан ремонт';
 }

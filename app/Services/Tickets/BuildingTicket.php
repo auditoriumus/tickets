@@ -5,7 +5,7 @@ namespace App\Services\Tickets;
 
 use Exception;
 
-abstract class Ticket implements TicketInterface
+abstract class BuildingTicket implements BuildingTicketInterface
 {
     private string $title;
     private string $description;
@@ -16,9 +16,9 @@ abstract class Ticket implements TicketInterface
     private float $totalArea;
     private int $year;
     private array $lifts;//лифты
-    const string SERVICE_LIFT = 'service';
+    const string SERVICE_LIFT   = 'service';
     const string PASSENGER_LIFT = 'passenger';
-    const string YEAR_ERROR = 'Year must be between 1850 and 2050';
+    const string YEAR_ERROR     = 'Year must be between 1850 and 2050';
 
     public function getTitle(): string
     {

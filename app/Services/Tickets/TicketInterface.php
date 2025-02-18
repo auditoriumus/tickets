@@ -1,7 +1,8 @@
 <?php
-declare(strict_types=1);
 
 namespace App\Services\Tickets;
+
+use App\Services\Tickets\Dictionaries\SellerDict;
 
 interface TicketInterface
 {
@@ -13,17 +14,10 @@ interface TicketInterface
     public function setPrice(float $price): void;
     public function getDealType(): string;//тип сделки (аренда/продажа/посуточная аренда)
     public function setDealType(string $dealType): void;
-    public function getFunctionalType(): string;//тип назначения (коммерческое/жилое)
-    public function setFunctionalType(string $functionalType): void;
     public function getShare(): string;//доля
     public function setShare(string $share): void;
     public function getTotalArea(): float;//общая площадь
     public function setTotalArea(float $totalArea): void;
-    public function getYear(): int;//год постройки
-    public function setYear(int $year): void;
-    public function getLifts(): array;
-    public function addServiceLift(): void;
-    public function deleteServiceLift(): void;
-    public function addPassengerLift(): void;
-    public function deletePassengerLift(): void;
+    public function getSeller(): string;//продавец (собственник/агент)
+    public function setSeller (SellerDict $seller): void;
 }
