@@ -2,6 +2,7 @@
 
 namespace App\Services\Tickets;
 
+use App\Services\Tickets\Dictionaries\DealDict;
 use App\Services\Tickets\Dictionaries\SellerDict;
 
 interface TicketInterface
@@ -13,7 +14,7 @@ interface TicketInterface
     public function getPrice(): float;
     public function setPrice(float $price): void;
     public function getDealType(): string;//тип сделки (аренда/продажа/посуточная аренда)
-    public function setDealType(string $dealType): void;
+    public function setDealType(DealDict $dealType): void;
     public function getShare(): string;//доля
     public function setShare(string $share): void;
     public function getTotalArea(): float;//общая площадь

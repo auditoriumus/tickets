@@ -9,9 +9,9 @@ use Illuminate\Database\Eloquent\Relations\HasOne;
 use Illuminate\Database\Eloquent\SoftDeletes;
 
 /**
+ * 
  *
- *
- * @property-read UserRefreshToken|null $refreshToken
+ * @property-read \App\Models\UserRefreshToken|null $refreshToken
  * @method static Builder<static>|User newModelQuery()
  * @method static Builder<static>|User newQuery()
  * @method static Builder<static>|User onlyTrashed()

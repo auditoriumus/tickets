@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Api\v1;
 
 use App\Http\Controllers\Controller;
+use App\Http\Requests\CreateTicketRequest;
 use App\Models\Ticket;
 use Illuminate\Http\Request;
 
@@ -19,7 +20,7 @@ class TicketController extends Controller
     /**
      * Store a newly created resource in storage.
      */
-    public function store(Request $request)
+    public function store(CreateTicketRequest $request)
     {
         //
     }

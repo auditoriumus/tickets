@@ -3,6 +3,8 @@ declare(strict_types=1);
 
 namespace App\Services\Tickets\Buildings;
 
+use App\Services\Tickets\Dictionaries\DealDict;
+use App\Services\Tickets\Dictionaries\FunctionalTypeDict;
 use Exception;
 
 abstract class BuildingTicket implements BuildingTicketInterface
@@ -12,13 +14,12 @@ abstract class BuildingTicket implements BuildingTicketInterface
     private float $price;
     private string $dealType;
     private string $functionalType;
-    private string $share;
     private float $totalArea;
     private int $year;
     private array $lifts;//лифты
-    const string SERVICE_LIFT   = 'service';
-    const string PASSENGER_LIFT = 'passenger';
-    const string YEAR_ERROR     = 'Year must be between 1850 and 2050';
+    private string $share            = '1';
+    const string SERVICE_LIFT        = 'service';
+    const string PASSENGER_LIFT      = 'passenger';
 
     public function getTitle(): string
     {
@@ -48,17 +49,17 @@ abstract class BuildingTicket implements BuildingTicketInterface
     {
         return $this->dealType ?? '';
     }
-    public function setDealType(string $dealType): void
+    public function setDealType(DealDict $dealType): void
     {
-        $this->dealType = $dealType;
+        $this->dealType = $dealType->value;
     }
     public function getFunctionalType(): string
     {
         return $this->functionalType ?? '';
     }
-    public function setFunctionalType(string $functionalType): void
+    public function setFunctionalType(FunctionalTypeDict $functionalType): void
     {
-        $this->functionalType = $functionalType;
+        $this->functionalType = $functionalType->value;
     }
     public function getShare(): string
     {
@@ -87,9 +88,6 @@ abstract class BuildingTicket implements BuildingTicketInterface
      */
     public function setYear(int $year): void
     {
-        if ($year < 1850 || $year > 2050) {
-            throw new Exception(self::YEAR_ERROR);
-        }
         $this->year = $year;
     }
 
